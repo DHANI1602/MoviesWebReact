@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Save from '.../helpers/SaveInStorage.js';
 
 const CreateMovie = () => {
   const mainTitle = 'Añadir Pelicula';
@@ -20,6 +21,7 @@ const CreateMovie = () => {
       description,
     };
     setMovieState(movie);
+    Save(movie);
   };
   return (
     <>
