@@ -21,7 +21,7 @@ const CreateMovie = () => {
       description,
     };
     setMovieState(movie);
-    Save(movie);
+    Save('movies', movie);
   };
   return (
     <>
