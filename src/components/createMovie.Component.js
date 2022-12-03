@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Save from '.../helpers/SaveInStorage.js';
+import Save from '../helpers/SaveInStorage';
 
 const CreateMovie = () => {
   const mainTitle = 'Añadir Pelicula';

@@ -1,13 +1,14 @@
-import React from 'react';
-import MoviesList from './components/Movies/MoviesList.Component.js';
-import SearchMovie from './components/Lateral/Search/SearchMovie.Component.js';
-import CreateMovie from './components/Lateral/Add/createMovie.Component.js';
+import React, { useState } from 'react';
+import MoviesList from './components/MoviesList.Component.js';
+import SearchMovie from './components/SearchMovie.Component.js';
+import CreateMovie from './components/createMovie.Component.js';
 import Footer from './components/footer/footer.Component.js';
 import Navbar from './components/nav/nav.component.js';
 import Header from './components/header/header.component.js';
 import './style.css';
 
 export default function App() {
+  const [listState, setListState] = useState([]);
   return (
     <div className="layout">
       <Header />
