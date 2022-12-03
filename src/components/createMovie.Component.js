@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Save from '../helpers/SaveInStorage';
 
-const CreateMovie = () => {
+const CreateMovie = ({ setListState }) => {
   const mainTitle = 'Añadir Pelicula';
 
   const [movieState, setMovieState] = useState({
@@ -21,6 +21,9 @@ const CreateMovie = () => {
       description,
     };
     setMovieState(movie);
+    setListState((e) => {
+      return [movie, ...e];
+    });
     Save('movies', movie);
   };
   return (

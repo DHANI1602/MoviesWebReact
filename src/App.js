@@ -14,11 +14,11 @@ export default function App() {
       <Header />
       <Navbar />
       <section className="content">
-        <MoviesList />
+        <MoviesList listState={listState} setListState={setListState} />
       </section>
       <aside className="lateral">
         <SearchMovie />
-        <CreateMovie />
+        <CreateMovie setListState={setListState} />
       </aside>
 
       <Footer />
