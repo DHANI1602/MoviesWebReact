@@ -17,7 +17,7 @@ export default function App() {
         <MoviesList listState={listState} setListState={setListState} />
       </section>
       <aside className="lateral">
-        <SearchMovie />
+        <SearchMovie listState={listState} setListState={setListState}/>
         <CreateMovie setListState={setListState} />
       </aside>
 

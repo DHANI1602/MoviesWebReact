@@ -1,13 +1,24 @@
 import React, { useEffect, useState } from 'react';
+import Edit from './edit/edit.Component.js';
 
 const MoviesList = ({ listState, setListState }) => {
+  const [edit, setEdit] = useState(0);
   useEffect(() => {
     GetInfo();
   }, []);
 
+  const DeleteMovie = (id) => {
+    let savedMovies = GetInfo();
+    let newMoviesList = savedMovies.filter(
+      (movie) => movie.id !== parseInt(id)
+    );
+    setListState(newMoviesList);
+    localStorage.setItem('movies', JSON.stringify(newMoviesList));
+  };
   const GetInfo = () => {
     let info = JSON.parse(localStorage.getItem('movies'));
     setListState(info);
+    return info;
   };
 
   return (
@@ -18,8 +29,25 @@ const MoviesList = ({ listState, setListState }) => {
             <article className="movie-item">
               <h3 className="title">{movie.title}</h3>
               <p className="description">{movie.description}</p>
-              <button className="edit">Editar</button>
-              <button className="delete">borrar</button>
+              <button className="edit" onClick={() => setEdit(movie.id)}>
+                Editar
+              </button>
+              <button
+                className="delete"
+                onClick={() => {
+                  DeleteMovie(movie.id);
+                }}
+              >
+                borrar
+              </button>
+              {edit === movie.id && (
+                <Edit
+                  movie={movie}
+                  GetInfo={GetInfo}
+                  setEdit={setEdit}
+                  setListState={setListState}
+                />
+              )}
             </article>
           );
         })
