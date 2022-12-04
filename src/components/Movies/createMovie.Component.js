@@ -14,15 +14,17 @@ const CreateMovie = ({ setListState }) => {
     let target = e.target;
     let title = target.title.value;
     let description = target.description.value;
+    let background = target.background.value;
 
     let movie = {
       id: new Date().getTime(),
       title,
       description,
+      background,
     };
     setMovieState(movie);
     setListState((e) => {
-      return [movie, ...e];
+      return [...e, movie];
     });
     Save('movies', movie);
   };
@@ -42,7 +44,21 @@ const CreateMovie = ({ setListState }) => {
             name="description"
             placeholder="Descripción"
           ></textarea>
-          <input id="save" name="submit" type="submit" value="guardar" />
+          {/* 
+          <input
+            id="background"
+            name="background "
+            type="text"
+            placeholder="link de la imagen de fondo"
+          />
+          */}
+          <input
+            id="save"
+            name="submit"
+            type="submit"
+            value="guardar"
+            autocomplete="off"
+          />
         </form>
       </div>
     </>

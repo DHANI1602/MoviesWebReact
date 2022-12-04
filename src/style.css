@@ -1,6 +1,9 @@
+:root {
+  --background: 'https://www.google.com/search?q=toy+story+3&client=opera-gx&hs=qu1&sxsrf=ALiCzsY5-SXuFW4ftNYq93le6SoZVvjorQ:1670114863787&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjPpcLZ3t77AhVnq5UCHbzVDhYQ_AUoAXoECAEQAw&biw=1879&bih=970&dpr=1#imgrc=blSSP8Ti3u3nZM';
+}
 body {
-  background: rgb(113, 173, 173);
-  font-family: sans-serif, Arial, Helvetica;
+  background: rgb(83, 223, 223);
+  font-family: 'Zen Dots', cursive;
   text-align: center;
   padding: 0px;
   margin: 0px;
@@ -81,7 +84,7 @@ body {
 }
 .movie-item {
   flex-grow: 1;
-  background-color: white;
+  background: #ddd;
   border-radius: 10px;
   box-shadow: 0px 0px 6px #ddd;
   padding-top: 60px;

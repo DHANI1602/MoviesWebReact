@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Edit from './edit/edit.Component.js';
 
-const MoviesList = ({ listState, setListState }) => {
+const MoviesList = ({ listState, setListState, rootElement }) => {
   const [edit, setEdit] = useState(0);
+  var rootElement = document.documentElement;
   useEffect(() => {
     GetInfo();
   }, []);
