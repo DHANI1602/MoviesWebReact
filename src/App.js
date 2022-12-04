@@ -6,6 +6,7 @@ import Footer from './components/Movies/footer/footer.Component.js';
 import Navbar from './components/Movies/nav/nav.component.js';
 import Header from './components/Movies/header/header.component.js';
 import ErrorMessage from './components/Movies/error/message.component.js';
+import PrincipalRouter from './routers/PrincipalRouter.js';
 import './style.css';
 
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
   var rootElement = document.documentElement;
   return (
     <div className="layout">
+      <PrincipalRouter />
       <Header />
       <Navbar />
       {nonsearch == true && search.length > 1 && <ErrorMessage />}
