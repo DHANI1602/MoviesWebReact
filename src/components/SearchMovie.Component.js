@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 
-const SearchMovie = ({ listState, setListState }) => {
-  const [search, setSearch] = useState('');
+const SearchMovie = ({
+  listState,
+  setListState,
+  nonsearch,
+  setNonSearch,
+  search,
+  setSearch,
+}) => {
   const searchMovie = (e) => {
     //crear estado y actualizarlo
     setSearch(e.target.value);
@@ -9,11 +15,14 @@ const SearchMovie = ({ listState, setListState }) => {
     let moviesSearched = listState.filter((movie) => {
       return movie.title.toLowerCase().includes(search.toLowerCase());
     });
-    if (search.length <= 2) {
+    if (search.length <= 2 || moviesSearched <= 0) {
       moviesSearched = JSON.parse(localStorage.getItem('movies'));
+      setNonSearch(true);
+    } else {
+      setNonSearch(false);
     }
     //actualizar el listaod principal con lo que se filtro
-    //setListState()
+    setListState(moviesSearched);
   };
   return (
     <>
@@ -28,7 +37,6 @@ const SearchMovie = ({ listState, setListState }) => {
             value={search}
             onChange={searchMovie}
           />
-          <button>buscar</button>
         </form>
       </div>
     </>

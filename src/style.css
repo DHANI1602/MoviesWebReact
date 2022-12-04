@@ -12,9 +12,10 @@ body {
   grid-template-areas:
     'header header header header'
     'nav nav nav nav'
+    'message message message message'
     'content content content lateral'
     'footer footer footer footer';
-  grid-template-rows: 100px 70px auto 30px;
+  grid-template-rows: 100px 70px auto auto 30px;
 }
 .header {
   grid-area: header;
@@ -157,6 +158,13 @@ textarea {
 .footer a {
   color: #0b468a;
   text-decoration: none;
+}
+.message-error {
+  grid-area: message;
+  background: crimson;
+}
+.message-error h3 {
+  color: white;
 }
 @media (max-width: 1085px) {
   .content {
