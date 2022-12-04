@@ -14,13 +14,11 @@ const CreateMovie = ({ setListState }) => {
     let target = e.target;
     let title = target.title.value;
     let description = target.description.value;
-    let background = target.background.value;
 
     let movie = {
       id: new Date().getTime(),
       title,
       description,
-      background,
     };
     setMovieState(movie);
     setListState((e) => {
@@ -44,14 +42,6 @@ const CreateMovie = ({ setListState }) => {
             name="description"
             placeholder="Descripción"
           ></textarea>
-          {/* 
-          <input
-            id="background"
-            name="background "
-            type="text"
-            placeholder="link de la imagen de fondo"
-          />
-          */}
           <input
             id="save"
             name="submit"

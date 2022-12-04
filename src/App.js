@@ -16,7 +16,6 @@ export default function App() {
   var rootElement = document.documentElement;
   return (
     <div className="layout">
-      <PrincipalRouter />
       <Header />
       <Navbar />
       {nonsearch == true && search.length > 1 && <ErrorMessage />}
