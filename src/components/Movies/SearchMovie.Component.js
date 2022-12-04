@@ -15,7 +15,7 @@ const SearchMovie = ({
     let moviesSearched = listState.filter((movie) => {
       return movie.title.toLowerCase().includes(search.toLowerCase());
     });
-    if (search.length <= 2 || moviesSearched <= 0) {
+    if (search.length <= 1 || moviesSearched <= 0) {
       moviesSearched = JSON.parse(localStorage.getItem('movies'));
       setNonSearch(true);
     } else {

@@ -18,7 +18,7 @@ export default function App() {
     <div className="layout">
       <Header />
       <Navbar />
-      {nonsearch == true && search.length > 1 && <ErrorMessage />}
+      {nonsearch == true && search.length > 2 && <ErrorMessage />}
       <section className="content">
         <MoviesList
           listState={listState}
