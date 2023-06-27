@@ -1,61 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import Edit from './edit/edit.Component.js';
+import axios from 'axios';
 
 const MoviesList = ({ listState, setListState, rootElement }) => {
-  const [edit, setEdit] = useState(0);
-  var rootElement = document.documentElement;
+  const [movies, setMovies] = useState([]);
+
   useEffect(() => {
-    GetInfo();
+    const fetchData = async () => {
+      try {
+        const apiKey = c0638ca104d2a4dc1689ead7c63b4c46;
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`
+        );
+        setMovies(response.data.results);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const DeleteMovie = (id) => {
-    let savedMovies = GetInfo();
-    let newMoviesList = savedMovies.filter(
-      (movie) => movie.id !== parseInt(id)
-    );
-    setListState(newMoviesList);
-    localStorage.setItem('movies', JSON.stringify(newMoviesList));
-  };
-  const GetInfo = () => {
-    let info = JSON.parse(localStorage.getItem('movies'));
-    setListState(info);
-    return info;
-  };
-
   return (
-    <>
-      {listState != null ? (
-        listState.map((movie) => {
-          return (
-            <article className="movie-item">
-              <h3 className="title">{movie.title}</h3>
-              <p className="description">{movie.description}</p>
-              <button className="edit" onClick={() => setEdit(movie.id)}>
-                Editar
-              </button>
-              <button
-                className="delete"
-                onClick={() => {
-                  DeleteMovie(movie.id);
-                }}
-              >
-                borrar
-              </button>
-              {edit === movie.id && (
-                <Edit
-                  movie={movie}
-                  GetInfo={GetInfo}
-                  setEdit={setEdit}
-                  setListState={setListState}
-                />
-              )}
-            </article>
-          );
-        })
-      ) : (
-        <h2>No hay peliculas actualmente</h2>
-      )}
-    </>
+    <div>
+      <h1>Popular Movies</h1>
+      <ul>
+        {movies.map((movie) => (
+          <li key={movie.id}>{movie.title}</li>
+        ))}
+      </ul>
+    </div>
   );
 };
 export default MoviesList;
