@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import MoviesList from './components/Movies/MoviesList.Component.js';
 import SearchMovie from './components/Movies/SearchMovie.Component.js';
-import CreateMovie from './components/Movies/createMovie.Component.js';
 import Footer from './components/Movies/footer/footer.Component.js';
 import Navbar from './components/Movies/nav/nav.component.js';
 import Header from './components/Movies/header/header.component.js';
@@ -35,7 +34,6 @@ export default function App() {
           search={search}
           setSearch={setSearch}
         />
-        <CreateMovie setListState={setListState} />
       </aside>
 
       <Footer />
