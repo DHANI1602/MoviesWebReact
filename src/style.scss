@@ -16,7 +16,7 @@ body {
     'header header header header'
     'nav nav nav nav'
     'message message message message'
-    'content content lateral lateral'
+    'content content content lateral'
     'footer footer footer footer';
   grid-template-rows: 100px 70px auto auto 30px;
 }
@@ -90,6 +90,7 @@ body {
 .movie-item {
   flex-grow: 0;
   width: 250px;
+  height: 300px;
   background: #ddd;
   border-radius: 10px;
   box-shadow: 0px 0px 6px #ddd;
@@ -160,7 +161,7 @@ textarea {
   background: #d1defa;
   color: #454545;
   border-top: 1px solid white;
-  text-align: left;
+  text-align: center;
   line-height: 28px;
   padding-left: 25px;
 }
@@ -175,6 +176,110 @@ textarea {
 .message-error h3 {
   color: white;
 }
+.filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.filter-button {
+  width: 100px;
+  height: 100px;
+  margin: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Agrega una transición suave */
+}
+
+.filter-button.active {
+  width: 110px; /* Ajusta el ancho para hacerlo un poco más grande */
+  height: 110px; /* Ajusta la altura para hacerlo un poco más grande */
+  margin: 3px; /* Ajusta el margen para mantener el espacio adecuado */
+  background-color: rgba(255, 0, 0, 0.979);
+}
+
+.check {
+  color: rgb(200, 255, 0);
+}
+.movie-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.movie-item {
+  width: 200px;
+  height: 300px;
+  margin: 10px;
+  transition: filter 0.3s;
+}
+.front-card-movie {
+  position: relative;
+}
+
+.front-card-movie .movie-item {
+  flex-grow: 0;
+  width: 250px;
+  height: 300px;
+  background: #ddd;
+  border-radius: 10px;
+  box-shadow: 0px 0px 6px #ddd;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.5s;
+}
+
+.front-card-movie .movie-item.hovered {
+  transform: rotateY(180deg);
+}
+
+.front-card-movie .movie-item .front-content,
+.front-card-movie .movie-item .back-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  transition: opacity 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform-style: preserve-3d;
+}
+
+.front-card-movie .movie-item .front-content {
+  z-index: 2;
+}
+
+.front-card-movie .movie-item .back-content {
+  text-align: center;
+  opacity: 0;
+  transform: rotateY(180deg);
+}
+
+.front-card-movie .movie-item.hovered .front-content {
+  opacity: 0;
+}
+
+.front-card-movie .movie-item.hovered .back-content {
+  opacity: 1;
+}
+
+.front-card-movie .movie-item .front-content .front-image {
+  flex-grow: 1;
+  border-radius: 10px;
+  background-size: cover;
+  background-position: center;
+  transform: rotateY(0deg);
+}
+
+.front-card-movie .movie-item .back-content h1 {
+  text-align: center;
+}
+.front-card-movie .movie-item .back-content p {
+  text-align: center;
+}
+
 @media (max-width: 1085px) {
   .content {
     flex-flow: column wrap;

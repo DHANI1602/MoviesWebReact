@@ -1,42 +1,45 @@
 import React, { useState } from 'react';
 import MoviesList from './components/Movies/MoviesList.Component.js';
 import SearchMovie from './components/Movies/SearchMovie.Component.js';
+import FilterMovies from './components/Movies/FilterMovies.Component.js';
 import Footer from './components/Movies/footer/footer.Component.js';
 import Navbar from './components/Movies/nav/nav.component.js';
 import Header from './components/Movies/header/header.component.js';
 import ErrorMessage from './components/Movies/error/message.component.js';
 import PrincipalRouter from './routers/PrincipalRouter.js';
-import './style.css';
+import './style.scss';
 
-export default function App() {
-  const [listState, setListState] = useState([]);
-  const [search, setSearch] = useState('');
-  const [nonsearch, setNonSearch] = useState('');
-  var rootElement = document.documentElement;
+const App = () => {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (term) => {
+    setSearchTerm(term);
+  };
+  const [activeFilters, setActiveFilters] = useState([]);
+
+  const handleFilterChange = (platform) => {
+    if (activeFilters.includes(platform)) {
+      setActiveFilters(activeFilters.filter((filter) => filter !== platform));
+    } else {
+      setActiveFilters([...activeFilters, platform]);
+    }
+  };
+
   return (
     <div className="layout">
       <Header />
       <Navbar />
-      {nonsearch == true && search.length > 2 && <ErrorMessage />}
       <section className="content">
-        <MoviesList
-          listState={listState}
-          setListState={setListState}
-          rootElement={rootElement}
-        />
+        <MoviesList searchTerm={searchTerm} />
       </section>
       <aside className="lateral">
-        <SearchMovie
-          listState={listState}
-          setListState={setListState}
-          nonsearch={nonsearch}
-          setNonSearch={setNonSearch}
-          search={search}
-          setSearch={setSearch}
-        />
+        <SearchMovie handleSearch={handleSearch} />
+        <FilterMovies onFilterChange={handleFilterChange} />
       </aside>
 
       <Footer />
     </div>
   );
-}
+};
+
+export default App;

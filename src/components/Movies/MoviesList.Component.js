@@ -1,68 +1,93 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
-const MoviesList = () => {
+const MoviesList = ({ searchTerm }) => {
   const [movies, setMovies] = useState([]);
+  const [filteredMovies, setFilteredMovies] = useState([]);
+  const [hoveredMovie, setHoveredMovie] = useState(null);
+  const [hoveredMovieInfo, setHoveredMovieInfo] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const apiKey = 'c0638ca104d2a4dc1689ead7c63b4c46';
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`
-        );
-        setMovies(response.data.results);
+        let url = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&sort_by=popularity.desc`;
+
+        if (searchTerm) {
+          url = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${encodeURIComponent(
+            searchTerm
+          )}`;
+        }
+
+        const response = await axios.get(url);
+        const filteredMovies = response.data.results
+          .filter(
+            (movie) =>
+              movie.backdrop_path &&
+              movie.release_date &&
+              new Date(movie.release_date) <= new Date()
+          )
+          .slice(0, 20);
+
+        setMovies(filteredMovies);
       } catch (error) {
         console.error(error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [searchTerm]);
+
+  useEffect(() => {
+    setFilteredMovies(movies);
+  }, [movies]);
+
+  const handleMouseEnter = (movieId, movieInfo) => {
+    setHoveredMovie(movieId);
+    setHoveredMovieInfo(movieInfo);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredMovie(null);
+    setHoveredMovieInfo(null);
+  };
 
   return (
-    <div>
-      <h1>Popular Movies</h1>
-      <div className="movie-container">
-        {movies.map((movie) => (
+    <div className="movie-container">
+      {filteredMovies.map((movie) => (
+        <div className="front-card-movie">
           <div
-            className="movie-item"
+            className={`movie-item ${
+              movie.id === hoveredMovie ? 'hovered' : ''
+            }`}
             key={movie.id}
-            style={{
-              backgroundImage: `url(https://image.tmdb.org/t/p/w500${movie.backdrop_path})`, // Utiliza la URL de la imagen de fondo proporcionada por la API
-              backgroundSize: 'cover', // Ajusta el tamaño del fondo
-              backgroundPosition: 'center', // Centra el fondo
-            }}
+            onMouseEnter={() =>
+              handleMouseEnter(movie.id, {
+                title: movie.title,
+                release_date: movie.release_date,
+                overview: movie.overview,
+              })
+            }
+            onMouseLeave={handleMouseLeave}
           >
-            <div className="movie-title">{movie.title}</div>
+            <div className="front-content">
+              <div
+                className="front-image"
+                style={{
+                  backgroundImage: `url(https://image.tmdb.org/t/p/w500${movie.poster_path})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                }}
+              ></div>
+            </div>
+            <div className="back-content">
+              <h1>{hoveredMovieInfo && hoveredMovieInfo.title}</h1>
+              <p>{hoveredMovieInfo && hoveredMovieInfo.overview}</p>
+              <p>{hoveredMovieInfo && hoveredMovieInfo.release_date}</p>
+            </div>
           </div>
-        ))}
-      </div>
-      <style>
-        {`
-          .movie-item {
-            position: relative;
-          }
-        
-          .movie-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            backdrop-filter: blur(0.5px); /* Cambia el valor del desenfoque según tus necesidades */
-          }
-        
-          .movie-title {
-            position: relative;
-            z-index: 1;
-            color: white; /* Cambia el color del texto a blanco */
-            padding: 10px; /* Agrega un espacio interno alrededor del texto */
-            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black; /* Crea un efecto de borde alrededor del texto */
-          }
-        `}
-      </style>
+        </div>
+      ))}
     </div>
   );
 };
