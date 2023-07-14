@@ -7,7 +7,7 @@ const Header = () => {
         <div className="logo">
           <div className="play"></div>
         </div>
-        <h1>Mis Peliculas</h1>
+        <h1>Movie Searcher</h1>
       </header>
     </>
   );

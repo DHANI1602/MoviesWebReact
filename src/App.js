@@ -3,7 +3,6 @@ import MoviesList from './components/Movies/MoviesList.Component.js';
 import SearchMovie from './components/Movies/SearchMovie.Component.js';
 import FilterMovies from './components/Movies/FilterMovies.Component.js';
 import Footer from './components/Movies/footer/footer.Component.js';
-import Navbar from './components/Movies/nav/nav.component.js';
 import Header from './components/Movies/header/header.component.js';
 import ErrorMessage from './components/Movies/error/message.component.js';
 import PrincipalRouter from './routers/PrincipalRouter.js';
@@ -28,7 +27,6 @@ const App = () => {
   return (
     <div className="layout">
       <Header />
-      <Navbar />
       <section className="content">
         <MoviesList searchTerm={searchTerm} />
       </section>
